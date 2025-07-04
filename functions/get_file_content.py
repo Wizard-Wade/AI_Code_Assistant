@@ -1,8 +1,8 @@
 import os
-from containment_helpers import is_in_working_directory
+from containment_helpers import in_working_directory
 
 def get_file_content(working_directory, file_path):
-    included, abs_file = is_in_working_directory(working_directory, file_path)
+    included, abs_file = in_working_directory(working_directory, file_path)
     if not included:
         return f'Error: Cannot read "{abs_file}" as it is outside the permitted working directory'
     

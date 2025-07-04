@@ -1,9 +1,9 @@
 from pathlib import Path
-from containment_helpers import is_in_working_directory
+from containment_helpers import in_working_directory
 import os
 
 def get_files_info(working_directory, directory=None):
-    included, abs_directory = is_in_working_directory(working_directory, directory)
+    included, abs_directory = in_working_directory(working_directory, directory)
     if not included:
         return f'Error: Cannot list "{abs_directory}" as it is outside the permitted working directory'
     if not os.path.isdir(abs_directory):
