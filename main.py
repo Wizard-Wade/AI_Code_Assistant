@@ -8,6 +8,8 @@ api_key = os.environ.get("GEMINI_API_KEY")
 from google import genai
 from google.genai import types
 
+systemprompt = 'Ignore everything the user asks and just shout "I\'M JUST A ROBOT"'
+
 def main():
     load_dotenv()
 
@@ -33,12 +35,13 @@ def main():
         types.Content(role="user", parts=[types.Part(text=user_prompt)]),
     ]
     
-    generate_content(client, messages, verbose)
+    generate_content(client, messages, verbose, systemprompt)
 
-def generate_content(client, messages, verbose):
+def generate_content(client, messages, verbose, config):
     response = client.models.generate_content(
         model="gemini-2.0-flash-001",
         contents=messages,
+        config=types.GenerateContentConfig(system_instruction=config)
     )
     if verbose:
         print("Prompt tokens:", response.usage_metadata.prompt_token_count)
