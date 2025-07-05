@@ -1,5 +1,20 @@
 import os
 from containment_helpers import in_working_directory
+from google.genai import types
+
+schema_get_file_content = types.FunctionDeclaration(
+    name="get_file_content",
+    description="Read content from file in the specified directory, constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="Required argument. The filepath, relative to the working directory.",
+            ),
+        },
+    ),
+)
 
 def get_file_content(working_directory, file_path):
     included, abs_file = in_working_directory(working_directory, file_path)
