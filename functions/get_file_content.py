@@ -13,6 +13,7 @@ schema_get_file_content = types.FunctionDeclaration(
                 description="Required argument. The filepath, relative to the working directory.",
             ),
         },
+        required=["file_path"],
     ),
 )
 
@@ -30,7 +31,6 @@ def get_file_content(working_directory, file_path):
         with open(abs_file, "r") as f:
             file_content_string = f.read(MAX_CHARS)
         
-        length = len(file_content_string)
         if len(file_content_string) == MAX_CHARS:
             file_content_string += f'...File "{abs_file}" truncated at 10000 characters'
         return file_content_string
